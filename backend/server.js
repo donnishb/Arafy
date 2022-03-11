@@ -14,6 +14,11 @@ mongoose.connect(process.env.MONGODB_URI, {
   useUnifiedTopology: true,
 });
 
+app.use(express.static(path.join(__dirname, '/frontend/build')));
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
+);
+  
 app.use('/api/users', userRouter);
 // app.get('/', (req, res) => {
 //   res.send('Server is ready');
